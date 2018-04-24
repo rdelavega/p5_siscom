@@ -8,21 +8,17 @@ function p5_siscom(  )
 
   fs = 10*(fa);
   d = [0.5 0.4 0.3 0.2 0.1 0.05];
-
-  for i = 1:1:6
-     vs = pam(v, fs, d(i)*100, t);
-     plotFunction(2, (230+i), t, vs, ['PAM d = ', num2str(d(i))]);
-  end
-  
   fc = 20/10000;
   [b,a] = butter(6,fc);
 
   for i = 1:1:6
      vs = pam(v, fs, d(i)*100, t);
+     plotFunction(2, (230+i), t, vs, ['PAM d = ', num2str(d(i))]);
+     vs = pam(v, fs, d(i)*100, t);
      [ w, ywf ] = magneticSpectrum(vs, fs);
      plotFunction(3, (230+i), w, ywf, ['Espectro d = ', num2str(d(i))]);
      vcf = filter(b, a, vs);
-     plotFunction(4, (230+i), t, vcf, "Senal de Filtro");
+     plotFunction(4, (230+i), t, vcf, ['Senal de Filtro d = ', num2str(d(i))]);
   end
 
 end
@@ -50,7 +46,6 @@ function [ w, ywf ] = magneticSpectrum(vs, fs)
   yw = fft(vs);
   ywf = abs(fftshift(yw));
   w=(-fs/2):(fs/(length(yw)-1)):(fs/2);
-
   xlabel('Hz');
   ylabel('Magnitud');
 
