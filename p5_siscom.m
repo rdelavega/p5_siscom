@@ -4,7 +4,7 @@ function p5_siscom(  )
   fa = 10*pi;
 
   v = sin(fa*t);
-  plotFunction(1, 211, t, v, "Senal original");
+  plotFunction(1, 111, t, v, "Senal original");
 
   fs = 10*(fa);
   d = [0.5 0.4 0.3 0.2 0.1 0.05];
@@ -13,18 +13,17 @@ function p5_siscom(  )
      vs = pam(v, fs, d(i)*100, t);
      plotFunction(2, (230+i), t, vs, ['PAM d = ', num2str(d(i))]);
   end
+  
+  fc = 20/10000;
+  [b,a] = butter(6,fc);
 
   for i = 1:1:6
      vs = pam(v, fs, d(i)*100, t);
      [ w, ywf ] = magneticSpectrum(vs, fs);
      plotFunction(3, (230+i), w, ywf, ['Espectro d = ', num2str(d(i))]);
+     vcf = filter(b, a, vs);
+     plotFunction(4, (230+i), t, vcf, "Senal de Filtro");
   end
-
-  fc = 20/10000;
-  [b,a] = butter(6,fc);
-  vcf = filter(b,a,vs);
-
-  plotFunction(1, 212, t, vcf, "Senal de Filtro");
 
 end
 
