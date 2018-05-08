@@ -22,8 +22,9 @@ function p5_siscom( void )
   end
 
   pcm();
-
+  
 end
+
 
 function plotFunction( fig, sp, x, y, tit, typ )
 
@@ -59,7 +60,7 @@ end
 
 function pcm( void )
 
-  [v,Fs] = audioread('Practica5.wav');
+  [v,Fs] = audioread('audio.wav');
 
   dt = 0.1;
   lv = length(v);
@@ -73,13 +74,14 @@ function pcm( void )
   newVector = 0:dt:((length(data)-1)*dt);
   tSpace = (((lv-1)*dt)*dt)/(lv/Fs);
 
-  plotFunction(5, 211, newVector, data, '', 1);
+  plotFunction(5, 311, newVector, data, '', 1);
   axis([0,tSpace,-0.5,0.5]);
-  plotFunction(5, 212, t, v, '', 0);
+  plotFunction(5, 312, t, v, '', 0);
   axis([0,0.1,-0.5,0.5]);
 
   quantization = getQuantization(v, data, inc);
-  plotFunction(6, 111, newVector, quantization, '', 1);
+  sound(quantization);
+  plotFunction(5, 313, newVector, quantization, '', 1);
   axis([0,tSpace,-0.5,0.5]);
 
 end
