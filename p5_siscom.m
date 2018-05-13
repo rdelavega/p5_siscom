@@ -80,6 +80,7 @@ function pcm( void )
   axis([0,0.1,-0.5,0.5]);
 
   quantization = getQuantization(v, data, inc);
+  fprintf('Audio');
   sound(quantization);
   plotFunction(5, 313, newVector, quantization, '', 1);
   axis([0,tSpace,-0.5,0.5]);
@@ -89,7 +90,7 @@ end
 function quantization = getQuantization( v, data, inc )
 
   inputMax = max(v);
-  bit = 4;
+  bit = 8;
   level = 2^bit;
   dist = (2 * inputMax) / level;
 
